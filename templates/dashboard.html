@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block
+content %}
+<div class="card">
+  <h1>Dashboard</h1>
+  <p>Welcome, <b>{{ username }}</b> ✅</p>
+
+  <hr />
+
+  <h2>Your Tasks</h2>
+
+  <div class="row">
+    <input id="taskInput" type="text" placeholder="New task..." />
+    <button class="btn" id="addBtn">Add</button>
+  </div>
+
+  <ul id="taskList" class="task-list"></ul>
+
+  <p class="hint">
+    Tip: If tasks don’t show, open DevTools Console (F12) to see errors.
+  </p>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

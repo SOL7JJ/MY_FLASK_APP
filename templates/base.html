@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %}My Flask App{% endblock %}</title>
+
+    <!-- Main CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Header / Navigation -->
+    <header class="site-header">
+      <div class="container header-row">
+        <div class="brand">
+          <img
+            class="logo"
+            src="{{ url_for('static', filename='images/logo.png') }}"
+            alt="Logo"
+          />
+          <span class="brand-name">My Flask App</span>
+        </div>
+
+        <nav class="nav">
+          <a href="{{ url_for('index') }}">Home</a>
+
+          {% if session.get("user_id") %}
+          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+          <a class="btn-link" href="{{ url_for('logout') }}">Logout</a>
+          {% else %}
+          <a class="btn-link" href="{{ url_for('login') }}">Login</a>
+          <a class="btn-link" href="{{ url_for('register') }}">Register</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container">{% block content %}{% endblock %}</main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <small>Built with Flask • SQLite • Jinja</small>
+      </div>
+    </footer>
+  </body>
+</html>
