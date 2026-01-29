@@ -1,11 +1,15 @@
+import os
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = "CHANGE_THIS_TO_A_RANDOM_SECRET_KEY"  # change later
 
-DB_NAME = "app.db"
+# Use Render environment variable if set (recommended), otherwise fallback for local dev
+app.secret_key = os.environ.get("SECRET_KEY", "dev-only-secret")
+
+# Make DB path robust (works on Render and locally)
+DB_NAME = os.path.join(os.path.dirname(__file__), "app.db")
 
 
 # ---------- Database helpers ----------
@@ -127,7 +131,7 @@ def dashboard():
     return render_template("dashboard.html", username=session.get("username"))
 
 
-# ---------- API routes for tasks (used by static/js/main.js) ----------
+# ---------- API routes for tasks ----------
 @app.route("/api/tasks", methods=["GET"])
 def api_get_tasks():
     if not login_required():
@@ -192,7 +196,8 @@ def api_delete_task(task_id):
     return jsonify({"message": "Deleted", "id": task_id})
 
 
-# ---------- Run ----------
+# ✅ IMPORTANT FOR RENDER (Gunicorn imports app.py, so init_db must run on import)
+init_db()
+
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)

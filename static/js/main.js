@@ -24,7 +24,6 @@ function renderTasks(tasks) {
     delBtn.className = "icon-btn";
     delBtn.title = "Delete";
 
-    // Using an icon file (optional). If you don't have it yet, the button still works.
     const icon = document.createElement("img");
     icon.src = "/static/icons/trash.svg";
     icon.alt = "Delete";
@@ -91,7 +90,6 @@ function deleteTask(id) {
     .catch((err) => console.error("Delete task error:", err));
 }
 
-// Wire up button + enter key
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = el("addBtn");
   const input = el("taskInput");

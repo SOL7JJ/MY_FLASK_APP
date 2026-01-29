@@ -6,17 +6,17 @@
   <ul>
     <li>Templates (Jinja)</li>
     <li>Static files (CSS/JS/images)</li>
-    <li>Login (sessions)</li>
+    <li>Register / Login (sessions)</li>
     <li>SQLite database</li>
     <li>Tasks on the dashboard (API + JS)</li>
   </ul>
 
-  <p class="hint">Default login: <b>admin</b> / <b>admin123</b></p>
-
   <div class="actions">
-    <a class="btn" href="{{ url_for('login') }}">Go to Login</a>
     {% if session.get("user_id") %}
     <a class="btn" href="{{ url_for('dashboard') }}">Go to Dashboard</a>
+    {% else %}
+    <a class="btn" href="{{ url_for('register') }}">Register</a>
+    <a class="btn" href="{{ url_for('login') }}">Login</a>
     {% endif %}
   </div>
 </div>
